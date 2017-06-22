@@ -54,6 +54,14 @@ module.exports = function (opts) {
 				var stat = new fs.Stats();
 				var mode = (entry.externalFileAttributes >> 16) & 0xFFFF;
 
+				if (mode === 0) {
+					if (entry.externalFileAttributes === 16) {
+						mode = 493;
+					} else {
+						mode = 420;
+					}
+				}
+
 				stat.mode = mode;
 
 				if (entry.getLastModDate()) {
